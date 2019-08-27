@@ -13,6 +13,7 @@ public class BirdGenerator : MonoBehaviour
     public GameObject birdPrefab1;
     public GameObject birdPrefab2;
     public GameObject birdPrefab3;
+	GameObject birdGameObject;
 
     private bool wanderingStatus;
     private bool rotatingStatus;
@@ -20,9 +21,12 @@ public class BirdGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EntityArchetype entityArchetype = WorldManager.entityManager.CreateArchetype
+        
+        EntityManager entityManager = World.Active.GetExistingManager<EntityManager>();
+
+        EntityArchetype entityArchetype = entityManager.CreateArchetype
             (
-            typeof(Transform),
+            typeof(Position),
             typeof(RenderMesh),
             typeof(Scale),
             typeof(Rotation),
@@ -31,18 +35,29 @@ public class BirdGenerator : MonoBehaviour
 
         NativeArray<Entity> entityArray = new NativeArray<Entity>(numberOfBirds, Allocator.Temp);
 
-        WorldManager.entityManager.CreateEntity(entityArchetype, entityArray);
+        entityManager.CreateEntity(entityArchetype, entityArray);
 
         for (int i = 0; i < entityArray.Length; i++)
         {
             int randomBirdMesh = UnityEngine.Random.Range(1, 4);
-            string chosenBirdPrefab = string.Format("birdPrefab{0}", randomBirdMesh);
-            GameObject birdGameObject = GameObject.Find(chosenBirdPrefab);
-
+            if (randomBirdMesh == 1)
+			{
+				birdGameObject = birdPrefab1;
+			}
+            if (randomBirdMesh == 2)
+			{
+				birdGameObject = birdPrefab2;
+			}
+            if (randomBirdMesh == 3)
+			{
+				birdGameObject = birdPrefab3;
+			}
             Entity entity = entityArray[i];
-
-            WorldManager.entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = birdGameObject.GetComponent<Mesh>()});
+        
+           entityManager.SetSharedComponentData(entity, new RenderMesh { mesh =  birdGameObject.GetComponent<Mesh>()});
+            entityManager.SetComponentData(entity, new Position { Value = new float3(0.0f, 0.0f, 0.0f)});
         }
+        entityArray.Dispose();
 
     }
 

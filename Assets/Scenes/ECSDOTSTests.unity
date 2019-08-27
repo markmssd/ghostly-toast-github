@@ -141,10 +141,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a266d49fddff4b188d134fcebf91da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfBirds: 5000
-  birdPrefab1: {fileID: 0}
-  birdPrefab2: {fileID: 0}
-  birdPrefab3: {fileID: 0}
+  numberOfBirds: 500
+  birdPrefab1: {fileID: 1274995391033446, guid: f98578bccb91c1c4bab2d18afd301d93,
+    type: 3}
+  birdPrefab2: {fileID: 1514307944965384, guid: ba5056f86d727314dba990ee6d90a350,
+    type: 3}
+  birdPrefab3: {fileID: 1115642694270540, guid: 4fea53eb5e0100948b22dc501d6728e9,
+    type: 3}
 --- !u!4 &167718371
 Transform:
   m_ObjectHideFlags: 0
@@ -638,7 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   turnSpeed: 40
-  gravity: 20
+  gravity: 0
 --- !u!143 &971806160
 CharacterController:
   m_ObjectHideFlags: 0
